@@ -22,20 +22,21 @@ class CKEditorInput extends Input {
         $result .= ' name="'.$this->form->getName().'['.$this->getName().']"';
         $result .= $this->getClassHtml();
         $result .= '>'.$this->getValue().'</textarea>';
+        $this->addScript();
+        return $result;
+    }
+    
+    private function addScript() {
+        $optionsJson = json_encode($this->options);
+        $script = '<script type="text/javascript">';
+        $script .= 'ClassicEditor';
+        $script .= ".create(document.querySelector('#".$this->getId()."'), ".$optionsJson.")";
+        $script .= ".catch(error => { console.error( error ); } );";
+        $script .= '</script>';
         $this->view->addScript($this->baseUrl.'modules/minicore-ckeditor/static/ckeditor.js');
         $this->view->appendBlock('scripts');
-        $optionsJson = json_encode($this->options);
-        $this->view->write('
-            <script type="text/javascript">
-                ClassicEditor
-                    .create( document.querySelector( \'#'.$this->getId().'\' ), '.$optionsJson.' )
-                    .catch( error => {
-                        console.error( error );
-                    } );
-            </script>
-        ');
-        $this->view->endBlock();
-        return $result;
+        $this->view->write($script);
+        $this->view->endBlock();        
     }
 
 }
