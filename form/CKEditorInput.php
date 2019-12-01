@@ -28,11 +28,11 @@ class CKEditorInput extends Input {
     
     private function addScript() {
         $optionsJson = json_encode($this->options);
-        $script = '<script type="text/javascript">';
-        $script .= 'ClassicEditor';
+        $script = "<script>";
+        $script .= "ClassicEditor";
         $script .= ".create(document.querySelector('#".$this->getId()."'), ".$optionsJson.")";
         $script .= ".catch(error => { console.error( error ); } );";
-        $script .= '</script>';
+        $script .= "</script>\n";
         $this->view->addScript($this->baseUrl.'modules/minicore-ckeditor/static/ckeditor.js');
         $this->view->appendBlock('scripts');
         $this->view->write($script);
