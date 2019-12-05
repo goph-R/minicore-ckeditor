@@ -1,6 +1,6 @@
 <?php
 
-class CKEditorInput extends Input {
+class CkEditorInput extends Input {
     
     private $baseUrl;
     private $options = [];
