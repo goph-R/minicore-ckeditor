@@ -2,21 +2,17 @@
 
 class CkEditorInput extends Input {
     
-    private $baseUrl;
     private $options = [];
     
     public function __construct(Framework $framework, $name, $defaultValue = '') {
         parent::__construct($framework, $name, $defaultValue);
-        /** @var Router $router */
-        $router = $framework->get('router');
-        $this->baseUrl = $router->getBaseUrl();
     }
     
     public function setOptions($options) {
         $this->options = $options;
     }
 
-    public function fetch() {        
+    public function fetch() {
         $result = '<textarea ';
         $result .= ' id="'.$this->getId().'"';
         $result .= ' name="'.$this->form->getName().'['.$this->getName().']"';
@@ -27,16 +23,16 @@ class CkEditorInput extends Input {
     }
     
     private function addScript() {
+        $this->view->addScript('/modules/minicore-ckeditor/static/ckeditor.js');
         $optionsJson = json_encode($this->options);
         $script = "<script>";
         $script .= "ClassicEditor";
         $script .= ".create(document.querySelector('#".$this->getId()."'), ".$optionsJson.")";
         $script .= ".catch(error => { console.error( error ); } );";
         $script .= "</script>\n";
-        $this->view->addScript($this->baseUrl.'modules/minicore-ckeditor/static/ckeditor.js');
         $this->view->appendBlock('scripts');
         $this->view->write($script);
-        $this->view->endBlock();        
+        $this->view->endBlock();
     }
 
 }
