@@ -4,10 +4,6 @@ class CkEditorInput extends Input {
     
     private $options = [];
     
-    public function __construct(Framework $framework, $name, $defaultValue = '') {
-        parent::__construct($framework, $name, $defaultValue);
-    }
-    
     public function setOptions($options) {
         $this->options = $options;
     }
