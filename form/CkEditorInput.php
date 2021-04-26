@@ -23,7 +23,7 @@ class CkEditorInput extends Input {
         $optionsJson = json_encode($this->options);
         $script = "<script>";
         $script .= "ClassicEditor";
-        $script .= ".create(document.querySelector('#".$this->getId()."'), ".$optionsJson.")";
+        $script .= ".create(document.getElementById('".$this->getId()."'), ".$optionsJson.")";
         $script .= ".catch(error => { console.error( error ); } );";
         $script .= "</script>\n";
         $this->view->appendBlock('scripts');
