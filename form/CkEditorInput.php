@@ -19,7 +19,7 @@ class CkEditorInput extends Input {
     }
     
     private function addScript() {
-        $this->view->addScript('/modules/minicore-ckeditor/static/ckeditor.js');
+        use_module_script('minicore-ckeditor', 'static/ckeditor.js');
         $optionsJson = json_encode($this->options);
         $script = "<script>";
         $script .= "ClassicEditor";
